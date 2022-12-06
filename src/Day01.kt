@@ -1,15 +1,30 @@
 fun main() {
+    fun List<List<Int>>.sortedNElementsSum(n: Int): Int {
+        val values = sortedSetOf<Int>()
+        for (element in map { it.sum() }) {
+            values.add(element)
+            if (values.size > n) {
+                values.remove(values.first())
+            }
+        }
+        return values.sum()
+    }
+
     fun part1(input: List<String>): Int {
-        return input.size
+        val data = input.chunkedWithPredicate(
+            predicate = { it.isBlank() },
+            valueTransform = { it.toInt() }
+        )
+        return data.maxOf { it.sum() }
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val data = input.chunkedWithPredicate(
+            predicate = { it.isBlank() },
+            valueTransform = { it.toInt() }
+        )
+        return data.sortedNElementsSum(3)
     }
-
-    // test if implementation meets criteria from the description, like:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
 
     val input = readInput("Day01")
     println(part1(input))
